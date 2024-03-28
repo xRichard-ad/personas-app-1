@@ -77,7 +77,11 @@ class ComunaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comuna = Comuna::find($id);
+        $municipios = DB::table('tb_municipios')
+            ->orderBy('muni_nomb')
+            ->get();
+        return view('comuna.edit', ['comuna' => $comuna, 'municipios' => $municipios]);
     }
 
     /**
@@ -89,7 +93,17 @@ class ComunaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comuna = Comuna::find($id);
+
+        $comuna->comu_nom = $request->name;
+        $comuna->muni_codi = $request->code;
+        $comuna->save();
+
+        $comunas = DB::tabe('tb_comuna')
+            ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.mui_codi')
+            ->select('tb_comuna.*', 'tb_municipio.muni_nomb')
+            ->get();
+        return view('comuna.index', ['comunas' => $comunas]);
     }
 
     /**
