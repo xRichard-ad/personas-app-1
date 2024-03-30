@@ -31,7 +31,14 @@
         <th scope="row">{{ $pais->pais_codi }}</th>
         <td>{{ $pais->pais_nomb }}</td>
         <td>{{ $pais->pais_capi }}</td>
-
+        <td>
+            
+            <form action="{{ route('paises.destroy', ['pais' => $pais->pais_codi]) }}" method="POST" style="display:inline-block">
+                @method('delete')
+                @csrf
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+        </td>
     </tr>
     @endforeach
     
@@ -51,4 +58,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     -->
   </body>
-</html> 
+</html>
